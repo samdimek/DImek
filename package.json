@@ -1,0 +1,13 @@
+{
+  "name": "xamdimek",
+  "version": "1.0.0",
+  "description": "Samuel Mwadime — portfolio + Stripe-powered store (Vercel)",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "stripe": "^18.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

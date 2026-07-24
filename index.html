@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Samuel Mwadime — Software Engineer · Web3 · Trader</title>
+<meta name="description" content="Samuel Mwadime — Solidity engineer, smart-contract security, and on-chain trading. Journals, recordings, art, lessons, courses, and trading tools." />
+
+<!-- canonical / social -->
+<link rel="canonical" href="https://www.xamdimek.xyz/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.xamdimek.xyz/" />
+<meta property="og:title" content="Samuel Mwadime — Software Engineer · Web3 · Trader" />
+<meta property="og:description" content="Solidity engineering, smart-contract security, and on-chain trading. Shop journals, recordings, art, lessons, courses and trading tools." />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   DESIGN TOKENS — blue-dark + silver
+============================================================ */
+:root{
+  --bg:#070B14; --bg-2:#0A1120; --surface:#0F1829; --surface-2:#14203A;
+  --line:#223052; --line-soft:#18233E;
+  --text:#E7ECF5; --text-2:#A7B4CC; --text-3:#6B7A96;
+  --silver-1:#EDF1F8; --silver-2:#B9C4D8; --silver-3:#7C8AA6;
+  --signal:#3D7BFF; --signal-2:#5B93FF; --signal-soft:rgba(61,123,255,.14); --up:#35D399;
+  --radius:14px; --radius-s:10px; --maxw:1180px;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --display:"Sora",var(--sans);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(900px 500px at 78% -8%,rgba(61,123,255,.16),transparent 60%),
+  radial-gradient(700px 500px at 8% 108%,rgba(61,123,255,.08),transparent 60%),var(--bg)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.35;background-image:
+  linear-gradient(rgba(120,150,200,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(120,150,200,.05) 1px,transparent 1px);
+  background-size:52px 52px;mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 30%,transparent 85%)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:rgba(61,123,255,.35);color:#fff}
+:focus-visible{outline:2px solid var(--signal-2);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--signal-2);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--signal),transparent)}
+.silver-text{background:linear-gradient(160deg,var(--silver-1) 0%,var(--silver-2) 42%,var(--silver-3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);background:rgba(7,11,20,.55);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+header.nav.scrolled{border-bottom-color:var(--line-soft);background:rgba(7,11,20,.82)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;letter-spacing:.02em}
+.brand .mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;border:1px solid var(--line);background:linear-gradient(145deg,var(--surface-2),var(--surface));font-family:var(--mono);font-size:13px;font-weight:600;color:var(--silver-1);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-size:14px;color:var(--text-2);transition:color .2s;position:relative}
+.nav-links a:hover{color:var(--text)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--signal);transition:width .25s}
+.nav-links a:hover::after{width:100%}
+.cart-btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;padding:9px 15px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(145deg,var(--surface-2),var(--surface));color:var(--text);cursor:pointer;transition:border-color .2s,transform .1s}
+.cart-btn:hover{border-color:var(--signal)}
+.cart-btn:active{transform:translateY(1px)}
+.cart-count{min-width:20px;height:20px;padding:0 5px;border-radius:20px;background:var(--signal);color:#fff;font-size:11px;font-weight:600;display:grid;place-items:center}
+
+/* HERO */
+.hero{position:relative;padding:76px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.9rem,6.4vw,5.1rem);line-height:.98;letter-spacing:-.03em;margin:22px 0 0}
+.hero .role{font-family:var(--mono);font-size:14px;color:var(--text-2);margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 14px}
+.hero .role span{display:inline-flex;align-items:center;gap:8px}
+.hero .role .dot{width:6px;height:6px;border-radius:50%;background:var(--signal)}
+.hero p.lede{margin-top:22px;max-width:46ch;color:var(--text-2);font-size:1.02rem}
+.hero-cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13.5px;letter-spacing:.02em;padding:13px 22px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:transform .12s,box-shadow .25s,border-color .2s,background .2s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:linear-gradient(180deg,var(--signal-2),var(--signal));color:#fff;box-shadow:0 8px 26px -12px rgba(61,123,255,.8)}
+.btn-primary:hover{box-shadow:0 12px 34px -10px rgba(61,123,255,.9)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--silver-3)}
+.chart-panel{position:relative;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(160deg,var(--surface-2),var(--surface));padding:20px;overflow:hidden;box-shadow:0 30px 80px -50px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.04)}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.chart-head b{color:var(--silver-1);font-weight:600;font-size:14px}
+.chart-head .up{color:var(--up)}
+.chart-svg{width:100%;height:auto;display:block}
+.chart-foot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--text-3);margin-top:4px;letter-spacing:.04em}
+.ticker{margin-top:44px;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);overflow:hidden;white-space:nowrap;position:relative;background:linear-gradient(180deg,rgba(20,32,58,.35),transparent)}
+.ticker-track{display:inline-flex;gap:0;animation:scroll 34s linear infinite;padding:13px 0;will-change:transform}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-item{font-family:var(--mono);font-size:13px;color:var(--text-2);padding:0 26px;display:inline-flex;align-items:center;gap:10px}
+.ticker-item .sym{color:var(--silver-1)}
+.ticker-item .up{color:var(--up)}
+.ticker-item::after{content:"◆";color:var(--signal);opacity:.5;margin-left:26px;font-size:8px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:96px 0;position:relative}
+.sec-head{max-width:660px;margin-bottom:52px}
+.sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.7rem);letter-spacing:-.02em;margin-top:16px;line-height:1.05}
+.sec-head p{color:var(--text-2);margin-top:16px}
+.index-tag{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
+.about-body p{color:var(--text-2);margin-bottom:18px;max-width:56ch}
+.about-body strong{color:var(--text);font-weight:600}
+.stat-list{display:grid;gap:14px}
+.stat{border:1px solid var(--line);border-radius:var(--radius-s);padding:18px 20px;background:linear-gradient(160deg,var(--surface-2),var(--surface));display:flex;justify-content:space-between;align-items:center;gap:16px}
+.stat .k{font-family:var(--mono);font-size:12px;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase}
+.stat .v{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--silver-1);text-align:right}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;background:linear-gradient(165deg,var(--surface-2),var(--surface));transition:transform .3s cubic-bezier(.2,.7,.3,1),border-color .3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-5px);border-color:var(--signal)}
+.card .num{font-family:var(--mono);font-size:12px;color:var(--signal-2);letter-spacing:.1em}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.28rem;margin:14px 0 10px}
+.card p{color:var(--text-2);font-size:.95rem}
+.card .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{font-family:var(--mono);font-size:11px;color:var(--text-2);border:1px solid var(--line);border-radius:20px;padding:4px 11px}
+.trade{border-top:1px solid var(--line-soft)}
+.trade-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.trade-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tp{border:1px solid var(--line);border-radius:var(--radius-s);padding:22px;background:linear-gradient(160deg,var(--surface-2),var(--surface))}
+.tp .ic{font-family:var(--mono);color:var(--signal-2);font-size:13px;margin-bottom:12px}
+.tp h4{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:8px}
+.tp p{color:var(--text-2);font-size:.9rem}
+
+/* STORE */
+.store{border-top:1px solid var(--line-soft)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.filter{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;padding:9px 16px;border-radius:20px;border:1px solid var(--line);background:transparent;color:var(--text-2);cursor:pointer;transition:.2s}
+.filter:hover{border-color:var(--silver-3);color:var(--text)}
+.filter.active{background:var(--signal-soft);border-color:var(--signal);color:#fff}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.product{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:linear-gradient(165deg,var(--surface-2),var(--surface));display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.2,.7,.3,1),border-color .3s}
+.product:hover{transform:translateY(-5px);border-color:var(--signal)}
+.product .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;border-bottom:1px solid var(--line);display:grid;place-items:center}
+.product .thumb svg{width:100%;height:100%}
+.product .cat{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--silver-1);background:rgba(7,11,20,.6);border:1px solid var(--line);border-radius:20px;padding:4px 10px;backdrop-filter:blur(6px)}
+.product .sub-flag{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--up);background:rgba(53,211,153,.1);border:1px solid rgba(53,211,153,.4);border-radius:20px;padding:4px 10px}
+.product .body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.product h3{font-family:var(--display);font-weight:600;font-size:1.12rem;line-height:1.25}
+.product .desc{color:var(--text-2);font-size:.88rem;flex:1}
+.product .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:6px;gap:12px}
+.product .price{font-family:var(--mono);font-size:1.05rem;color:var(--silver-1);font-weight:500}
+.product .price small{color:var(--text-3);font-size:.72rem}
+.add-btn{font-family:var(--mono);font-size:12.5px;padding:10px 15px;border-radius:9px;cursor:pointer;border:1px solid var(--line);background:var(--signal-soft);color:#fff;transition:.18s;white-space:nowrap}
+.add-btn:hover{border-color:var(--signal);background:rgba(61,123,255,.24)}
+.add-btn.added{background:rgba(53,211,153,.16);border-color:var(--up);color:var(--up)}
+.add-btn.sub{background:rgba(53,211,153,.14);border-color:rgba(53,211,153,.5)}
+.add-btn.sub:hover{background:rgba(53,211,153,.24)}
+
+/* CART DRAWER */
+.overlay{position:fixed;inset:0;background:rgba(4,7,13,.66);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:.28s;z-index:70}
+.overlay.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(430px,100%);z-index:80;background:linear-gradient(180deg,var(--bg-2),var(--bg));border-left:1px solid var(--line);transform:translateX(100%);transition:transform .34s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--line-soft)}
+.drawer-head h3{font-family:var(--display);font-weight:700;font-size:1.15rem}
+.icon-btn{background:none;border:1px solid var(--line);color:var(--text-2);width:34px;height:34px;border-radius:9px;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.icon-btn:hover{border-color:var(--signal);color:var(--text)}
+.drawer-body{flex:1;overflow-y:auto;padding:8px 24px}
+.cart-empty{text-align:center;color:var(--text-3);font-family:var(--mono);font-size:13px;padding:70px 0}
+.cart-line{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line-soft)}
+.cart-line .cl-thumb{width:56px;height:56px;border-radius:9px;border:1px solid var(--line);overflow:hidden;flex-shrink:0;background:var(--surface)}
+.cart-line .cl-thumb svg{width:100%;height:100%}
+.cart-line .cl-info{flex:1;min-width:0}
+.cart-line .cl-info h4{font-size:.92rem;font-weight:600;margin-bottom:3px;line-height:1.3}
+.cart-line .cl-info .cl-cat{font-family:var(--mono);font-size:10.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em}
+.cart-line .cl-price{font-family:var(--mono);font-size:.9rem;color:var(--silver-1);margin-top:6px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}
+.qty button{background:var(--surface);border:none;color:var(--text-2);width:26px;height:26px;cursor:pointer;font-family:var(--mono);transition:.15s}
+.qty button:hover{background:var(--surface-2);color:var(--text)}
+.qty span{min-width:30px;text-align:center;font-family:var(--mono);font-size:13px}
+.cl-remove{background:none;border:none;color:var(--text-3);cursor:pointer;font-family:var(--mono);font-size:11px;margin-top:8px;padding:0;transition:.2s}
+.cl-remove:hover{color:#ff7a7a}
+.drawer-foot{border-top:1px solid var(--line);padding:22px 24px;background:var(--bg-2)}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.total-row .tl{font-family:var(--mono);font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em}
+.total-row .tv{font-family:var(--display);font-weight:700;font-size:1.5rem;color:var(--silver-1)}
+.pay-btn{width:100%;justify-content:center;font-size:14px;padding:15px}
+.pay-btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+.pay-cards{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.04em}
+.pay-cards svg{height:16px;width:auto;opacity:.85}
+.pay-note{font-family:var(--mono);font-size:10px;color:var(--text-3);text-align:center;margin-top:12px;line-height:1.6}
+.test-badge{display:none;font-family:var(--mono);font-size:10.5px;color:var(--up);border:1px solid rgba(53,211,153,.35);background:rgba(53,211,153,.08);border-radius:20px;padding:6px 12px;text-align:center;margin-bottom:14px;line-height:1.5}
+.test-badge.show{display:block}
+.pay-success{text-align:center;padding:16px 0}
+.pay-success .check{width:56px;height:56px;border-radius:50%;border:1px solid var(--up);color:var(--up);display:grid;place-items:center;margin:0 auto 16px;font-size:26px}
+.pay-success h4{font-family:var(--display);font-weight:700;font-size:1.2rem;margin-bottom:6px}
+.pay-success p{color:var(--text-2);font-size:.9rem}
+
+/* CONTACT / FOOTER */
+.contact{border-top:1px solid var(--line-soft)}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.contact h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.03em;line-height:1}
+.contact-links{display:grid;gap:14px}
+.clink{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--line);border-radius:var(--radius-s);padding:18px 20px;background:linear-gradient(160deg,var(--surface-2),var(--surface));transition:.25s}
+.clink:hover{border-color:var(--signal);transform:translateX(4px)}
+.clink .cl-k{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
+.clink .cl-v{font-size:.98rem;color:var(--text)}
+.clink .arr{color:var(--signal-2)}
+footer{border-top:1px solid var(--line-soft);padding:34px 0}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.foot-inner p{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:13px 20px;font-family:var(--mono);font-size:13px;color:var(--text);opacity:0;visibility:hidden;transition:.3s;z-index:90;box-shadow:0 20px 50px -20px rgba(0,0,0,.9);max-width:90vw;text-align:center}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:940px){
+  .hero-grid,.about-grid,.trade-grid,.contact-inner{grid-template-columns:1fr;gap:36px}
+  .cards,.products{grid-template-columns:repeat(2,1fr)}
+  .chart-panel{order:-1}
+}
+@media(max-width:680px){
+  .nav-links{display:none}
+  .cards,.products,.trade-panels{grid-template-columns:1fr}
+  section{padding:70px 0}
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto}
+  .ticker-track{animation:none;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="mark">SM</span><span>Samuel&nbsp;Mwadime</span></a>
+    <nav class="nav-links">
+      <a href="#work">Work</a><a href="#trading">Trading</a><a href="#store">Store</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" id="openCart" aria-label="Open cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.4 12.4a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></svg>
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<span id="top"></span>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Software Engineer · Web3 · Trader</span>
+      <h1><span class="silver-text">Samuel<br>Mwadime</span></h1>
+      <div class="role">
+        <span><i class="dot"></i>Solidity / EVM Engineer</span>
+        <span><i class="dot"></i>Smart-Contract Security</span>
+        <span><i class="dot"></i>On-Chain Trader</span>
+      </div>
+      <p class="lede">I build and audit Ethereum smart contracts, write for developers, and trade the markets I understand from the inside. Below: my work — and a shop for my journals, recordings, art, lessons, courses and trading tools.</p>
+      <div class="hero-cta">
+        <a href="#store" class="btn btn-primary">Browse the store →</a>
+        <a href="#work" class="btn btn-ghost">See the work</a>
+      </div>
+    </div>
+    <div class="chart-panel" aria-hidden="true">
+      <div class="chart-head"><span>SMWD · <b>career equity</b></span><span class="up">▲ compounding</span></div>
+      <svg class="chart-svg" viewBox="0 0 520 260" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B93FF"/><stop offset="1" stop-color="#EDF1F8"/></linearGradient>
+          <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(61,123,255,.35)"/><stop offset="1" stop-color="rgba(61,123,255,0)"/></linearGradient>
+        </defs>
+        <g stroke="#1c2947" stroke-width="1"><line x1="0" y1="60" x2="520" y2="60"/><line x1="0" y1="120" x2="520" y2="120"/><line x1="0" y1="180" x2="520" y2="180"/><line x1="0" y1="240" x2="520" y2="240"/></g>
+        <g>
+          <g><line x1="70" y1="150" x2="70" y2="210" stroke="#35D399" stroke-width="1"/><rect x="64" y="168" width="12" height="30" fill="#35D399" opacity=".55"/></g>
+          <g><line x1="150" y1="120" x2="150" y2="180" stroke="#35D399" stroke-width="1"/><rect x="144" y="132" width="12" height="34" fill="#35D399" opacity=".55"/></g>
+          <g><line x1="230" y1="130" x2="230" y2="176" stroke="#ff7a7a" stroke-width="1"/><rect x="224" y="140" width="12" height="26" fill="#ff7a7a" opacity=".4"/></g>
+          <g><line x1="330" y1="80" x2="330" y2="140" stroke="#35D399" stroke-width="1"/><rect x="324" y="92" width="12" height="36" fill="#35D399" opacity=".55"/></g>
+          <g><line x1="430" y1="44" x2="430" y2="104" stroke="#35D399" stroke-width="1"/><rect x="424" y="52" width="12" height="40" fill="#35D399" opacity=".55"/></g>
+        </g>
+        <path id="areaPath" d="M0,220 L70,196 L150,168 L230,176 L330,120 L430,72 L520,44 L520,260 L0,260 Z" fill="url(#fill)" opacity="0"/>
+        <path id="linePath" d="M0,220 L70,196 L150,168 L230,176 L330,120 L430,72 L520,44" fill="none" stroke="url(#line)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle id="tip" cx="520" cy="44" r="4.5" fill="#EDF1F8"/>
+      </svg>
+      <div class="chart-foot"><span>2018 · KCSE</span><span>2023 · BSc SWE</span><span>2022→ EVM</span><span>NOW</span></div>
+    </div>
+  </div>
+  <div class="wrap"><div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div></div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="index-tag">01 — Profile</span><h2>A builder who believes in decentralized systems.</h2></div>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>I'm a software engineer focused on <strong>web3 and blockchain</strong>, with three years building and testing EVM-based smart contracts. I care about the details that keep protocols safe — writing contracts, reviewing them for vulnerabilities, and documenting them so other developers can build with confidence.</p>
+        <p>That same discipline carries into how I trade. Understanding a chain from the contract level up changes how you read its markets. I keep a rigorous journal, record sessions, and build tools — much of which you can pick up in the store below.</p>
+        <p>I also write for developers as <strong>Samdimek on Hashnode</strong> and advocate for the tools I believe in at meetups and webinars.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat"><span class="k">Experience</span><span class="v">3+ yrs on the EVM</span></div>
+        <div class="stat"><span class="k">Core stack</span><span class="v">Solidity · Ethereum</span></div>
+        <div class="stat"><span class="k">Education</span><span class="v">BSc SWE — Murang'a '23</span></div>
+        <div class="stat"><span class="k">Certified</span><span class="v">Bitcoin Dev — Saylor</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="index-tag">02 — Engineering</span><h2>Selected work.</h2><p>Smart contracts, security reviews, and developer tooling built on Ethereum.</p></div>
+    <div class="cards">
+      <article class="card"><span class="num">/ 01</span><h3>J-Egit</h3><p>A decentralized version-control system that leverages IPFS for fast repo downloads and lets web3 developers earn every time their repositories get forked.</p><div class="tags"><span class="tag">IPFS</span><span class="tag">web3</span><span class="tag">Solidity</span></div></article>
+      <article class="card"><span class="num">/ 02</span><h3>Smart-Contract Security</h3><p>Thorough security reviews of EVM contracts — identifying vulnerabilities, implementing best practices, and protecting the integrity of on-chain logic.</p><div class="tags"><span class="tag">Auditing</span><span class="tag">EVM</span><span class="tag">Security</span></div></article>
+      <article class="card"><span class="num">/ 03</span><h3>Developer Writing</h3><p>Clear, comprehensive technical documentation and developer guides, published as <em>Samdimek</em> on Hashnode and presented at meetups and webinars.</p><div class="tags"><span class="tag">Docs</span><span class="tag">DevRel</span><span class="tag">Hashnode</span></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="trading" class="trade">
+  <div class="wrap">
+    <div class="sec-head"><span class="index-tag">03 — Markets</span><h2>Trading, from the contract level up.</h2><p>My approach — grounded in how these systems actually work, not hype. This is how I think, not a promise of returns.</p></div>
+    <div class="trade-grid">
+      <div class="trade-panels">
+        <div class="tp"><div class="ic">// on-chain</div><h4>On-chain reading</h4><p>Using contract-level understanding to interpret protocols, liquidity and risk before price does.</p></div>
+        <div class="tp"><div class="ic">// process</div><h4>Journaled process</h4><p>Every thesis, entry and exit logged. The journal is the edge — and it's in the store.</p></div>
+        <div class="tp"><div class="ic">// risk</div><h4>Risk first</h4><p>Position sizing and downside defined before any trade. Survival compounds.</p></div>
+        <div class="tp"><div class="ic">// tools</div><h4>Automation</h4><p>Trading and bidding bots that execute the plan without the emotion. Available below.</p></div>
+      </div>
+      <div class="about-body">
+        <p>Bitcoin and Ethereum aren't abstractions to me — I've studied them as a developer and I'm certified through Saylor's Bitcoin for Developers and Bitcoin for Everybody programs.</p>
+        <p>That foundation shapes a trading style built on <strong>understanding, discipline and record-keeping</strong> rather than noise. If that resonates, the journals, recordings, lessons, courses and bots in the store are where I share the actual methods.</p>
+        <a href="#store" class="btn btn-ghost" style="margin-top:8px">Explore the store →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="store" class="store">
+  <div class="wrap">
+    <div class="sec-head"><span class="index-tag">04 — Store</span><h2>Journals, recordings, art, lessons, courses &amp; tools.</h2><p>Secure checkout by card — Visa &amp; Mastercard, 3-D Secure supported — powered by Stripe.</p></div>
+    <div class="filters" id="filters"></div>
+    <div class="products" id="products"></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap contact-inner">
+    <div><span class="eyebrow">Get in touch</span><h2 class="silver-text" style="margin-top:18px">Let's build,<br>trade, or talk.</h2></div>
+    <div class="contact-links">
+      <a class="clink" href="mailto:mcsadime@gmail.com"><span><span class="cl-k">Email</span><br><span class="cl-v">mcsadime@gmail.com</span></span><span class="arr">→</span></a>
+      <a class="clink" href="tel:+254710603044"><span><span class="cl-k">Phone</span><br><span class="cl-v">+254 710 603 044</span></span><span class="arr">→</span></a>
+      <a class="clink" href="https://hashnode.com/@samdimek" target="_blank" rel="noopener"><span><span class="cl-k">Writing</span><br><span class="cl-v">Samdimek — Hashnode</span></span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>© <span id="year"></span> Samuel Mwadime · xamdimek.xyz</p>
+    <p>Nairobi, Kenya · built on the EVM mindset</p>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head"><h3>Your cart</h3><button class="icon-btn" id="closeCart" aria-label="Close cart">✕</button></div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   ⚙️  CONFIG
+   ------------------------------------------------------------
+   API_BASE : leave "" when the site and the /api functions are
+              deployed together on Vercel (recommended). Set a full
+              URL only if your backend lives on another domain.
+   TEST_MODE: true  → shows a "use Stripe test cards" hint in the cart.
+              Set to false when you flip Stripe to live keys.
+============================================================ */
+const CONFIG = { API_BASE: "", TEST_MODE: true };
+
+/* ------------------------------------------------------------
+   PRODUCTS  (prices in USD)
+   `id` must match the price map in api/create-checkout-session.js
+   `sub:true` marks a recurring subscription (its own Subscribe button)
+------------------------------------------------------------ */
+const PRODUCTS = [
+  { id:"jrnl", cat:"Journals",   price:15,  title:"The Voltage Trading Journal", desc:"My structured template for logging every thesis, entry, exit and lesson. The system behind the edge.", art:"journal" },
+  { id:"rec1", cat:"Recordings", price:20,  title:"Live Trading Session Recordings", desc:"Full recorded sessions breaking down real on-chain trades, decisions and risk in real time.", art:"play" },
+  { id:"rec2", cat:"Recordings", price:30,  title:"Smart-Contract Audit Screencasts", desc:"Watch me review EVM contracts line by line and hunt down vulnerabilities.", art:"shield" },
+  { id:"art1", cat:"Art",        price:40,  title:"On-Chain Generative Prints", desc:"A limited series of generative art pieces born from block data. Museum-grade digital prints.", art:"art" },
+  { id:"les1", cat:"Lessons",    price:50,  title:"1:1 Solidity Mentorship — 60 min", desc:"A focused hour on smart-contract development, security, or your specific project, one-on-one.", art:"chat" },
+  { id:"crs1", cat:"Courses",    price:95,  title:"EVM Mastery — Full Course", desc:"From first contract to secure deployment: the complete path to building confidently on Ethereum.", art:"course" },
+  { id:"crs2", cat:"Courses",    price:120, title:"Smart-Contract Development: Flashloans", desc:"Design, build and secure flashloan strategies on the EVM — the mechanics, the risks, and production-grade patterns.", art:"bolt" },
+  { id:"bot",  cat:"Bots",       price:25,  title:"Trading Bot — Monthly Access", desc:"Automated execution of the strategy, running for you around the clock. Cancel anytime.", art:"bot", sub:true, interval:"month" },
+  { id:"bid",  cat:"Bots",       price:15,  title:"Writing Bidding Bots", desc:"A practical guide to building bidding bots that place and manage bids automatically. Templates included.", art:"gavel" }
+];
+
+/* inline SVG thumbnails — no external images to host */
+function thumbArt(kind){
+  const base='xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200"';
+  const bg='<rect width="320" height="200" fill="#0F1829"/><rect width="320" height="200" fill="url(#g)"/>';
+  const defs='<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="rgba(61,123,255,.18)"/><stop offset="1" stop-color="rgba(61,123,255,0)"/></linearGradient></defs>';
+  const S='#B9C4D8', A='#5B93FF';
+  const shapes={
+    journal:`<g fill="none" stroke="${S}" stroke-width="2"><rect x="118" y="58" width="84" height="94" rx="6"/><line x1="118" y1="82" x2="202" y2="82"/><line x1="134" y1="104" x2="186" y2="104" stroke="${A}"/><line x1="134" y1="120" x2="186" y2="120"/><line x1="134" y1="136" x2="166" y2="136"/></g>`,
+    play:`<g><circle cx="160" cy="100" r="42" fill="none" stroke="${S}" stroke-width="2"/><path d="M150 82 L150 118 L182 100 Z" fill="${A}"/></g>`,
+    shield:`<g fill="none" stroke="${S}" stroke-width="2"><path d="M160 56 L196 70 V104 C196 130 178 144 160 150 C142 144 124 130 124 104 V70 Z"/><path d="M146 100 l10 10 l20 -22" stroke="${A}"/></g>`,
+    art:`<g><circle cx="132" cy="92" r="22" fill="none" stroke="${A}" stroke-width="2"/><rect x="150" y="94" width="42" height="42" fill="none" stroke="${S}" stroke-width="2" transform="rotate(14 171 115)"/><path d="M118 140 q42 -34 84 0" fill="none" stroke="${S}" stroke-width="2"/></g>`,
+    chat:`<g fill="none" stroke="${S}" stroke-width="2"><rect x="112" y="66" width="72" height="52" rx="10"/><path d="M132 118 l0 16 l18 -16"/><rect x="150" y="96" width="60" height="44" rx="10" stroke="${A}"/></g>`,
+    course:`<g fill="none" stroke="${S}" stroke-width="2"><path d="M160 66 L212 88 L160 110 L108 88 Z"/><path d="M124 96 v22 c0 10 72 10 72 0 v-22" stroke="${A}"/><line x1="212" y1="88" x2="212" y2="118"/></g>`,
+    bolt:`<g><path d="M168 54 L132 108 L156 108 L150 146 L188 92 L164 92 Z" fill="none" stroke="${A}" stroke-width="2" stroke-linejoin="round"/></g>`,
+    bot:`<g fill="none" stroke="${S}" stroke-width="2"><rect x="126" y="78" width="68" height="52" rx="10"/><circle cx="146" cy="104" r="5" fill="${A}" stroke="none"/><circle cx="174" cy="104" r="5" fill="${A}" stroke="none"/><line x1="160" y1="66" x2="160" y2="78"/><circle cx="160" cy="62" r="4"/><line x1="126" y1="100" x2="116" y2="100"/><line x1="194" y1="100" x2="204" y2="100"/></g>`,
+    gavel:`<g fill="none" stroke="${S}" stroke-width="2" stroke-linecap="round"><rect x="150" y="70" width="34" height="20" rx="4" transform="rotate(40 167 80)" stroke="${A}"/><line x1="150" y1="96" x2="176" y2="118"/><line x1="120" y1="140" x2="164" y2="140"/></g>`
+  };
+  return `<svg ${base}>${defs}${bg}${shapes[kind]||shapes.journal}</svg>`;
+}
+
+const fmt = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
+const money = n => fmt.format(n);
+const productById = id => PRODUCTS.find(p=>p.id===id);
+
+/* TICKER */
+const TICK=[["SOLIDITY","▲"],["EVM","▲"],["ETH","▲"],["BTC","▲"],["IPFS","●"],["SMART-CONTRACTS","▲"],["SECURITY-AUDITS","▲"],["WEB3","▲"],["RISK-MGMT","●"],["FLASHLOANS","▲"],["TRADING-BOTS","▲"],["J-EGIT","▲"]];
+document.getElementById("tickerTrack").innerHTML = (()=>{const r=TICK.map(([s,m])=>`<span class="ticker-item"><span class="sym">${s}</span><span class="${m==='▲'?'up':''}">${m}</span></span>`).join("");return r+r;})();
+
+/* CART STATE (one-time items only; subscription checks out on its own) */
+let cart={};
+try{ cart=JSON.parse(localStorage.getItem("sm_cart")||"{}"); }catch(e){ cart={}; }
+const saveCart=()=>{ try{ localStorage.setItem("sm_cart",JSON.stringify(cart)); }catch(e){} };
+const cartCount=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const cartTotal=()=>Object.entries(cart).reduce((s,[id,q])=>s+productById(id).price*q,0);
+
+/* STORE RENDER */
+const CATS=["All","Journals","Recordings","Art","Lessons","Courses","Bots"];
+let activeCat="All";
+function renderFilters(){
+  document.getElementById("filters").innerHTML=CATS.map(c=>`<button class="filter${c===activeCat?' active':''}" data-cat="${c}">${c}</button>`).join("");
+}
+function renderProducts(){
+  const list=activeCat==="All"?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
+  document.getElementById("products").innerHTML=list.map(p=>`
+    <article class="product">
+      <div class="thumb">${thumbArt(p.art)}<span class="cat">${p.cat}</span>${p.sub?'<span class="sub-flag">Subscription</span>':''}</div>
+      <div class="body">
+        <h3>${p.title}</h3>
+        <p class="desc">${p.desc}</p>
+        <div class="price-row">
+          <span class="price">${money(p.price)}${p.sub?` <small>/ ${p.interval}</small>`:''}</span>
+          ${p.sub
+            ? `<button class="add-btn sub" data-sub="${p.id}">Subscribe →</button>`
+            : `<button class="add-btn" data-add="${p.id}">Add to cart</button>`}
+        </div>
+      </div>
+    </article>`).join("");
+}
+
+/* CART RENDER */
+function renderCart(){
+  document.getElementById("cartCount").textContent=cartCount();
+  const body=document.getElementById("cartBody"), foot=document.getElementById("cartFoot");
+  const entries=Object.entries(cart);
+  if(!entries.length){
+    body.innerHTML=`<div class="cart-empty">Your cart is empty.<br>Pick something from the store.</div>`;
+    foot.innerHTML=""; return;
+  }
+  body.innerHTML=entries.map(([id,q])=>{
+    const p=productById(id);
+    return `<div class="cart-line">
+      <div class="cl-thumb">${thumbArt(p.art)}</div>
+      <div class="cl-info">
+        <span class="cl-cat">${p.cat}</span><h4>${p.title}</h4>
+        <div class="cl-price">${money(p.price*q)}</div>
+        <div class="qty"><button data-dec="${id}" aria-label="Decrease">−</button><span>${q}</span><button data-inc="${id}" aria-label="Increase">+</button></div>
+        <br><button class="cl-remove" data-rem="${id}">remove</button>
+      </div></div>`;
+  }).join("");
+  foot.innerHTML=`
+    ${CONFIG.TEST_MODE?`<div class="test-badge show">TEST MODE · use Stripe test cards — no real charge.<br>2D: 4242 4242 4242 4242 · 3-D Secure: 4000 0027 6000 3184</div>`:""}
+    <div class="total-row"><span class="tl">Total</span><span class="tv">${money(cartTotal())}</span></div>
+    <button class="btn btn-primary pay-btn" id="payBtn">Checkout with Stripe · ${money(cartTotal())}</button>
+    <div class="pay-cards"><span>Secured by</span>${visaSVG}${mcSVG}<span>· Stripe · 3-D Secure</span></div>
+    <p class="pay-note">You'll be redirected to Stripe's secure checkout. Card details are entered on Stripe — never on this site.</p>`;
+}
+const visaSVG=`<svg viewBox="0 0 48 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial,sans-serif" font-size="14" font-weight="700" font-style="italic" fill="#B9C4D8">VISA</text></svg>`;
+const mcSVG=`<svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="10" r="8" fill="#5B93FF" opacity=".9"/><circle cx="20" cy="10" r="8" fill="#B9C4D8" opacity=".7"/></svg>`;
+
+/* CART ACTIONS */
+function addToCart(id){ cart[id]=(cart[id]||0)+1; saveCart(); renderCart(); toast(`Added — ${productById(id).title}`); }
+
+document.getElementById("products").addEventListener("click",e=>{
+  const add=e.target.closest("[data-add]"), sub=e.target.closest("[data-sub]");
+  if(add){
+    addToCart(add.dataset.add);
+    add.textContent="Added ✓"; add.classList.add("added");
+    setTimeout(()=>{add.textContent="Add to cart";add.classList.remove("added");},1200);
+  } else if(sub){
+    startStripeCheckout([{id:sub.dataset.sub,quantity:1}], sub);
+  }
+});
+document.getElementById("filters").addEventListener("click",e=>{
+  const f=e.target.closest(".filter"); if(!f) return;
+  activeCat=f.dataset.cat; renderFilters(); renderProducts();
+});
+document.getElementById("cartBody").addEventListener("click",e=>{
+  const inc=e.target.closest("[data-inc]"), dec=e.target.closest("[data-dec]"), rem=e.target.closest("[data-rem]");
+  if(inc){ cart[inc.dataset.inc]++; }
+  else if(dec){ const id=dec.dataset.dec; cart[id]--; if(cart[id]<=0) delete cart[id]; }
+  else if(rem){ delete cart[rem.dataset.rem]; }
+  else return;
+  saveCart(); renderCart();
+});
+document.getElementById("cartFoot").addEventListener("click",e=>{
+  if(e.target.closest("#payBtn")){
+    const items=Object.entries(cart).map(([id,quantity])=>({id,quantity}));
+    if(items.length) startStripeCheckout(items, e.target.closest("#payBtn"));
+  }
+});
+
+/* ============================================================
+   STRIPE CHECKOUT
+   Sends the cart to the serverless function, which creates a
+   Checkout Session (secret key stays server-side) and returns a
+   URL we redirect to. Stripe handles the card form, 3-D Secure,
+   subscriptions, receipts.
+============================================================ */
+async function startStripeCheckout(items, btn){
+  const label = btn ? btn.textContent : "";
+  try{
+    if(btn){ btn.disabled=true; btn.textContent="Redirecting…"; }
+    const res=await fetch(CONFIG.API_BASE+"/api/create-checkout-session",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({items})
+    });
+    if(!res.ok){ const err=await res.json().catch(()=>({})); throw new Error(err.error||("Server error "+res.status)); }
+    const data=await res.json();
+    if(!data.url) throw new Error("No checkout URL returned");
+    window.location.href=data.url;
+  }catch(err){
+    toast("Checkout unavailable — "+err.message);
+    if(btn){ btn.disabled=false; btn.textContent=label||"Try again"; }
+  }
+}
+
+/* success / cancel return from Stripe */
+(function handleReturn(){
+  const p=new URLSearchParams(location.search), s=p.get("checkout");
+  if(s==="success"){
+    cart={}; saveCart();
+    setTimeout(()=>{
+      openCart(true);
+      document.getElementById("cartBody").innerHTML=`<div class="pay-success"><div class="check">✓</div><h4>Payment received</h4><p>Thank you. A receipt is on its way, and I'll follow up with your files or access by email.</p></div>`;
+      document.getElementById("cartFoot").innerHTML="";
+    },400);
+    history.replaceState({},"",location.pathname);
+  } else if(s==="cancelled"){
+    toast("Checkout cancelled — your cart is saved");
+    history.replaceState({},"",location.pathname);
+  }
+})();
+
+/* DRAWER */
+const overlay=document.getElementById("overlay"), drawer=document.getElementById("drawer");
+function openCart(skipRender){ if(!skipRender) renderCart(); overlay.classList.add("open"); drawer.classList.add("open"); drawer.setAttribute("aria-hidden","false"); }
+function closeCart(){ overlay.classList.remove("open"); drawer.classList.remove("open"); drawer.setAttribute("aria-hidden","true"); }
+document.getElementById("openCart").addEventListener("click",()=>openCart());
+document.getElementById("closeCart").addEventListener("click",closeCart);
+overlay.addEventListener("click",closeCart);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeCart(); });
+
+/* MISC */
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2600); }
+document.getElementById("year").textContent=new Date().getFullYear();
+window.addEventListener("scroll",()=>{ document.getElementById("nav").classList.toggle("scrolled",window.scrollY>10); });
+window.addEventListener("load",()=>{
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const line=document.getElementById("linePath"),area=document.getElementById("areaPath"),tip=document.getElementById("tip");
+  if(reduce||!line){ if(area) area.style.opacity=1; return; }
+  const len=line.getTotalLength();
+  line.style.strokeDasharray=len; line.style.strokeDashoffset=len;
+  line.style.transition="stroke-dashoffset 1.9s cubic-bezier(.4,0,.2,1)";
+  tip.style.opacity=0; area.style.transition="opacity 1s ease 1.4s";
+  requestAnimationFrame(()=>{ line.style.strokeDashoffset=0; area.style.opacity=1; setTimeout(()=>{ tip.style.transition="opacity .5s"; tip.style.opacity=1; },1600); });
+});
+
+renderFilters(); renderProducts(); renderCart();
+</script>
+</body>
+</html>
